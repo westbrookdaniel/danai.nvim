@@ -4,13 +4,6 @@ local fidget = require("fidget")
 
 local active = nil
 
--- Retrieves the API key from the environment variable specified by `name`.
--- @param name The name of the environment variable containing the API key.
--- @return The API key value or nil if not found.
-local function get_api_key(name)
-    return name and os.getenv(name)
-end
-
 -- Gets all lines in the current buffer up to the cursor's position.
 -- @return A string containing all lines concatenated with newlines.
 function M.get_lines_until_cursor()
@@ -73,7 +66,7 @@ end
 -- @return A table of cURL arguments.
 function M.get_anthropic_curl_args(opts, prompt, system_prompt)
     local url = opts.provider.url
-    local api_key = get_api_key(opts.provider.api_key_name)
+    local api_key = opts.provider.api_key
     local data = {
         system = system_prompt,
         messages = { { role = "user", content = prompt } },
@@ -106,7 +99,7 @@ end
 -- @return A table of cURL arguments.
 function M.get_openai_curl_args(opts, prompt, system_prompt)
     local url = opts.provider.url
-    local api_key = get_api_key(opts.provider.api_key_name)
+    local api_key = opts.provider.api_key
     local data = {
         messages = { { role = "system", content = system_prompt }, { role = "user", content = prompt } },
         model = opts.provider.model,
@@ -264,7 +257,7 @@ M.defaults = {
     provider = {
         url = "",
         model = "",
-        api_key_name = "",
+        api_key = "",
         style = "",
         -- body = {},
     },

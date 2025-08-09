@@ -50,7 +50,7 @@ Add the following to your Lazy.nvim configuration (or any other plugin manager):
             -- gpt-oss-120b through groq on openrouter
             url = "https://openrouter.ai/api/v1/chat/completions",
             model = "openai/gpt-oss-120b",
-            api_key_name = "OPENROUTER_API_KEY",
+            api_key = os.getenv("OPENROUTER_API_KEY"),
             body = {
                 temperature = 0.7,
                 provider = { only = { "groq" } },
@@ -60,13 +60,13 @@ Add the following to your Lazy.nvim configuration (or any other plugin manager):
             -- -- claude sonnet 4
             -- url = "https://api.anthropic.com/v1/messages",
             -- model = "claude-sonnet-4-20250514",
-            -- api_key_name = "ANTHROPIC_API_KEY",
+            -- api_key = os.getenv("ANTHROPIC_API_KEY"),
             -- style = "anthropic",
 
             -- -- gemini 2.5 flash
             -- url = "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions",
             -- model = "gemini-2.5-flash",
-            -- api_key_name = "GEMINI_API_KEY",
+            -- api_key = os.getenv("GEMINI_API_KEY"),
             -- body = { temperature = 0.7 },
             -- style = "openai",
         },
@@ -83,7 +83,7 @@ require("danai").setup({
   provider = {
     url = "https://api.anthropic.com/v1/messages", -- API endpoint
     model = "claude-3-5-sonnet-20241022", -- Model name
-    api_key_name = "ANTHROPIC_API_KEY", -- Environment variable for API key
+    api_key = os.getenv("ANTHROPIC_API_KEY"), -- API key
     style = "anthropic", -- "anthropic" or "openai"
     -- body = {}, -- Additional request body parameters
   },
